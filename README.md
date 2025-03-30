@@ -15,7 +15,7 @@
 
 <div align="center">
 
-# nonebot-plugin-status
+# nonebot-plugin-chobits
 
 _✨ Chobits 插件 ✨_
 

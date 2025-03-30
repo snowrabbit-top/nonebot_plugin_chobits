@@ -1,4 +1,6 @@
 import json
+import re
+import requests
 
 
 def parse_json_or_string(string):
@@ -34,3 +36,36 @@ def safe_json_serialize(value):
             except TypeError:
                 raise TypeError(f"无法序列化对象：{value}")
         return value
+
+
+def extract_numbers(text):
+    """
+    判断字符串是否包含数字并提取数字序列
+    :param text:
+    :return:
+    """
+    numbers = re.findall(r'\d+', text)  # 匹配连续的数字序列
+    return numbers if numbers else None
+
+
+def is_url_direct_accessible(url):
+    """
+    判断 url 是否可以直连
+    :param url:
+    :return:
+    """
+    try:
+        response = requests.head(url, allow_redirects=True, timeout=5)
+        return response.status_code == 200  # 严格判断200状态码[1,2](@ref)
+    except requests.exceptions.RequestException:
+        return False
+
+
+def number_is_group(number):
+    """
+    判断数字字符串是否是群号
+    http://p.qlogo.cn/gh/{number}/{number}/0
+    :param number:
+    :return:
+    """
+    return is_url_direct_accessible(f"http://p.qlogo.cn/gh/{number}/{number}/0")

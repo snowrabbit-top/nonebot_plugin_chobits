@@ -45,7 +45,7 @@ class MySql:
 
     def __init__(self):
         """
-        初始化MySQL
+        初始化 MySQL
         """
         flag = self.configure()
         if flag:
@@ -56,6 +56,19 @@ class MySql:
         else:
             # 抛出异常
             raise Exception("请查看MYSQL配置信息")
+
+    def __str__(self) -> str:
+        """
+        返回 MySQL 配置信息
+        """
+        return f"Redis({self.host}:{self.port})"
+
+    def __del__(self):
+        """
+        销毁MySQL
+        """
+        if self.connection:
+            self.connection.close()
 
     def configure(self) -> bool:
         """

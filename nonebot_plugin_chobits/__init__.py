@@ -12,8 +12,10 @@ __plugin_meta__ = PluginMetadata(
 )
 
 config = get_plugin_config(Config)
-
+# 实例化
 chobits = Chobits()
+# 注册命令
+chobits.life_cycle.command()
+chobits.echo.command()
 chobits.corpus.command()
 chobits.group_manage.command()
-chobits.redis.set_key(key="test_redis", value="value")

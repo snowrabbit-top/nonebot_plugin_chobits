@@ -62,6 +62,18 @@ class Redis:
             # 抛出异常
             raise Exception("请查看 Redis 配置信息")
 
+    def __str__(self) -> str:
+        """
+        返回 Redis 配置信息
+        """
+        return f"Redis({self.host}:{self.port})"
+
+    def __del__(self):
+        """
+        删除 Redis 连接
+        """
+        self.connection.close()
+
     def configure(self) -> bool:
         """
         配置 Redis 数据库
